@@ -1,7 +1,7 @@
 export default interface Comic {
 	month: string;
 	num: number;
-	link?: string;
+	link: string;
 	year: string;
 	news: string;
 	safe_title: string;
@@ -11,3 +11,8 @@ export default interface Comic {
 	title: string;
 	day: string;
 }
+
+export type RootStackParamList = {
+	Home: { latestComicNumber: number };
+	Details: { comic: Comic };
+};

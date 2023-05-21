@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { QueryClient, QueryClientProvider } from 'react-query';
@@ -7,11 +6,15 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import HomeScreen from './screens/HomeScreen';
 import DetailsScreen from './screens/DetailsScreen';
 import { getLatestComicNumber } from './api/xkcdApi';
-const Stack = createNativeStackNavigator();
+import Comic from './services/models';
+import { RootStackParamList } from './services/models';
+import { GlobalColors } from './services/styles/styles';
+
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 const queryClient = new QueryClient();
 
-export default function App() {
-  
+export default function App(): JSX.Element {
 	const [latestComicNumber, setLatestComicNumber] = useState<number | null>(
 		null
 	);
@@ -34,28 +37,23 @@ export default function App() {
 							options={{
 								title: 'Explore Your Comics World!',
 								headerStyle: {
-									backgroundColor: '#CAC089',
+									backgroundColor: GlobalColors.colors.topBar,
 								},
 							}}
 						/>
-						<Stack.Screen name='Details' component={DetailsScreen} options={{
+						<Stack.Screen
+							name='Details'
+							component={DetailsScreen}
+							options={{
 								title: 'Details',
 								headerStyle: {
-									backgroundColor: '#CAC089',
+									backgroundColor: GlobalColors.colors.topBar,
 								},
-							}}/>
+							}}
+						/>
 					</Stack.Navigator>
 				</NavigationContainer>
 			)}
 		</QueryClientProvider>
 	);
 }
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: '#fff',
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
-});

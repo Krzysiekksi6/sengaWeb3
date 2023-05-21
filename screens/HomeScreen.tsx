@@ -8,7 +8,11 @@ import { GlobalColors } from '../services/styles/styles';
 import { fetchComic } from '../api/xkcdApi';
 import LoadingSpinner from '../components/LoadingSpinner';
 
-const HomeScreen = ({ route }) => {
+type HomeScreenProps = {
+	route: { params: { latestComicNumber: number } };
+  };
+
+const HomeScreen = ({ route }: HomeScreenProps) => {
 	const { latestComicNumber } = route.params;
 	const latestComicNum = Number(latestComicNumber);
 	const [start, setStart] = useState(latestComicNum);
@@ -26,7 +30,7 @@ const HomeScreen = ({ route }) => {
 	const { isLoading, data, fetchNextPage } = useInfiniteQuery({
 		queryKey: ['comics'],
 		queryFn: fetchComics,
-		getNextPageParam: (lastPage, pages) => lastPage.num - 1,
+		getNextPageParam: (lastPage) => lastPage.num - 1,
 	});
 
 	const getMore = () => {

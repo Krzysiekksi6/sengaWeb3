@@ -7,5 +7,6 @@ export const GlobalColors = {
       gold: '#f3ca69',
       error50: '#fcc4e4',
       error500: '#9b095c',
+      topBar: '#CAC089',
     },
   };

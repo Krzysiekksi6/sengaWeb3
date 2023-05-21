@@ -1,26 +1,14 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Comic from '../services/models';
-import { transformText } from '../utils/transformText';
 import { GlobalColors } from '../services/styles/styles';
+
 type ComicItemProps = {
 	item: Comic;
 };
 
 const ComicItem = ({ item }: ComicItemProps) => {
-	const {
-		month,
-		num,
-		link,
-		year,
-		news,
-		safe_title,
-		transcript,
-		alt,
-		img,
-		title,
-		day,
-	} = item;
+	const { num, alt, img, title } = item;
 	const navigation = useNavigation();
 
 	const goToDetailsHandler = () => {

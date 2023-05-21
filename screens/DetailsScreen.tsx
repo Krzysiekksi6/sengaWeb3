@@ -1,50 +1,61 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../services/models';
 import Comic from '../services/models';
+import { transformText, transformDate } from '../utils/convertText';
 import { GlobalColors } from '../services/styles/styles';
 
-const DetailsScreen = ({ route, navigation }) => {
+type DetailsScreenRouteProp = RouteProp<RootStackParamList, 'Details'>;
+type DetailsScreenNavigationProp = StackNavigationProp<
+	RootStackParamList,
+	'Details'
+>;
+
+type DetailsScreenProps = {
+	route: DetailsScreenRouteProp;
+	navigation: DetailsScreenNavigationProp;
+};
+const DetailsScreen = ({ route, navigation }: DetailsScreenProps) => {
 	const { comic }: { comic: Comic } = route.params;
-	const dateText =
-		comic.day && comic.month && comic.year
-			? `${comic.day}/${comic.month}/${comic.year}`
-			: '';
+
+	const dateText: string | null = transformDate(comic);
+	
+	const transcriptText: string = transformText(comic.transcript);
 
 	return (
-		<>
-			<View style={styles.itemContainer}>
-				<View style={styles.headingContainer}>
-					<Text
-						style={styles.headingText}>{`${comic.title}: ${comic.num}`}</Text>
+		<View style={styles.itemContainer}>
+			<View style={styles.headingContainer}>
+				<Text style={styles.headingText}>{`${comic.title}: ${comic.num}`}</Text>
 
-					<Text style={styles.headingTextDate}>{dateText}</Text>
-				</View>
-				<View style={[styles.card, styles.cardElevated]}>
-					<Image
-						source={{
-							uri: comic.img,
-						}}
-						style={styles.cardImage}
-						alt={comic.alt}
-					/>
-				</View>
-
-				<View style={styles.cardBody}>
-					<Text style={styles.cardTitle}>
-						{comic.safe_title ? comic.safe_title : comic.title}:
-					</Text>
-
-					<Text style={styles.cardLabel}>
-						{comic.news ? comic.news : 'No news'}
-					</Text>
-					<Text style={styles.cardLabel}>
-						{comic.transcript ? comic.transcript : 'No transcript'}
-					</Text>
-					{!comic.news && !comic.transcript && (
-						<Text style={styles.cardDescription}>{comic.alt}</Text>
-					)}
-				</View>
+				<Text style={styles.headingTextDate}>{dateText}</Text>
 			</View>
-		</>
+			<View style={[styles.card, styles.cardElevated]}>
+				<Image
+					source={{
+						uri: comic.img,
+					}}
+					style={styles.cardImage}
+					alt={comic.alt}
+				/>
+			</View>
+
+			<View style={styles.cardBody}>
+				<Text style={styles.cardTitle}>
+					{comic.safe_title ? comic.safe_title : comic.title}:
+				</Text>
+
+				<Text style={styles.cardLabel}>
+					{comic.news ? comic.news : 'No news'}
+				</Text>
+				<Text style={styles.cardLabel}>
+					{transcriptText ? transcriptText : 'No transcript'}
+				</Text>
+				{!comic.news && !comic.transcript && (
+					<Text style={styles.cardDescription}>{comic.alt}</Text>
+				)}
+			</View>
+		</View>
 	);
 };
 
@@ -113,17 +124,5 @@ const styles = StyleSheet.create({
 		fontWeight: '600',
 		fontSize: 16,
 		fontStyle: 'italic',
-	},
-	cardFooter: {
-		width: '90%',
-		height: 60,
-		justifyContent: 'center',
-		alignItems: 'center',
-		borderWidth: 1.5,
-		borderRadius: 12,
-		padding: 12,
-		backgroundColor: GlobalColors.colors.cta,
-		marginVertical: 12,
-		marginHorizontal: 16,
 	},
 });

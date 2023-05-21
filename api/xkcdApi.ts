@@ -1,6 +1,6 @@
 import axios from 'axios';
 import Comic from '../services/models';
-const BASE_URL = 'https://xkcd.com';
+const BASE_URL: string = 'https://xkcd.com';
 
 const xkcdApi = axios.create({
 	baseURL: BASE_URL,

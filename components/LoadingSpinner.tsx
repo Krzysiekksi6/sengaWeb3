@@ -1,19 +1,13 @@
 import React from 'react';
-import {
-	StyleSheet,
-	Text,
-	View,
-	ActivityIndicator,
-	FlatList,
-	Touchable,
-	TouchableOpacity,
-} from 'react-native';
+import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
 
 import { GlobalColors } from '../services/styles/styles';
-const LoadingSpinner = () => {
+const LoadingSpinner = (): JSX.Element => {
 	return (
 		<View style={styles.spinnerContainer}>
-			<Text>We're loading your favourite comics! </Text>
+			<Text style={styles.loadingText}>
+				We're loading your favourite comics!{' '}
+			</Text>
 			<ActivityIndicator size='large' color={GlobalColors.colors.cta} />
 		</View>
 	);
@@ -22,15 +16,14 @@ const LoadingSpinner = () => {
 export default LoadingSpinner;
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: GlobalColors.colors.white50,
-	},
 	spinnerContainer: {
 		flex: 1,
 		justifyContent: 'center',
 		alignItems: 'center',
 		backgroundColor: GlobalColors.colors.white50,
+		marginVertical: 12,
+	},
+	loadingText: {
 		marginVertical: 12,
 	},
 });
