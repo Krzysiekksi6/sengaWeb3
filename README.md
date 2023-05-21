@@ -2,6 +2,11 @@
 
 This is a mobile application that displays comics from the XKCD service. It allows users to browse through the latest and previous comics and view detailed information about each comic.
 
+## Demo
+
+Check out this [YouTube video](https://www.youtube.com/shorts/UqTIe_HhRRc) for a demo of the application.
+
+
 ## Features
 
 - Browse and view XKCD comics
@@ -29,10 +34,13 @@ This is a mobile application that displays comics from the XKCD service. It allo
 
 1. Clone the repository:
 
+git clone https://github.com/Krzysiekksi6/sengaWeb3.git
 
 2. Install the dependencies:
 
+```shell
 npm install
+```
 
 ### Usage
 
